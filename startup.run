@@ -8,6 +8,8 @@ function start_inventory(){
 	start_docker inventory "$msg_mysql"
 }
 
+py_odoo='/home/vagrant/miniconda/envs/odoo/bin/python'
+
 # startup 
 if [ $# -lt 1 ]; then	
 	echo "available opts: all, zk, storm, repl, ..."
@@ -20,11 +22,31 @@ else
 	"inventory")
 		start_inventory
 		;;
+	"l")
+		vagrant up ; vagrant ssh -- -t 'cd /vagrant; /bin/bash'
+		;;
 	"ssh")
 		vagrant ssh -- -t 'cd /vagrant; /bin/bash'
 		;;
+	"ws")
+		vagrant ssh -- -t 'cd /pi/stack; /bin/bash'
+		;;
+
 	"bus")
 		vagrant ssh -- -t 'cd /pi/stack/compose/dist; /home/vagrant/miniconda/bin/docker-compose up'
+		;;
+	"kafka")
+		vagrant ssh -- -t 'cd /home/vagrant/kafka/kafka_2.12-2.3.1 && bin/kafka-server-start.sh config/server.properties'
+		;;
+	"ofbiz")
+		vagrant ssh -- -t 'cd /vagrant/projs/ofbiz-framework/ ; ./gradlew ofbiz -x test'
+		;;
+
+	"odoo")
+		vagrant ssh -- -t "cd /vagrant/projs/odoo-12.0.post20190620/ ; $py_odoo ./odoo-bin -d demo"
+		;;
+	"odoo-shell")
+		vagrant ssh -- -t "cd /vagrant/projs/odoo-12.0.post20190620/ ; $py_odoo ./odoo-bin shell -d demo"
 		;;
 	*)
 		# default proc
