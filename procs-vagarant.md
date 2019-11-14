@@ -15,3 +15,18 @@ $ vagrant package
 $ vagrant package --output centos-6.7.box
 ```
 
+## cli
+```sh
+$ vagrant ssh -- -t 'cd /vagrant; /bin/bash'
+
+# run backends
+$ vagrant ssh -- -t 'cd /pi/stack/compose/dist; /home/vagrant/miniconda/bin/docker-compose up'
+```
+
++ shortcuts
+
+```sh
+start bus
+start ssh
+```
+

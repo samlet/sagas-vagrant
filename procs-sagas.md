@@ -93,4 +93,20 @@ $ python -m sagas.nlu.spacy_procs ents 'I am from China'
 ## backend
 □ odoo
 
+## cache data: translator
+```sh
+start ssh
+cd /pi/stack/compose/dist
+docker-compose ps
+docker cp /pi/stack/out/trans.json "$(docker-compose ps -q mongo)":/trans.json
+# enter container: runi mongo bash
+# or directly exec
+docker-compose exec mongo /usr/bin/mongoimport --db=langs --collection=trans --file=/trans.json
+
+# check
+$ cd /pi/stack
+$ using bigdata
+$ python -m sagas.nlu.trans_cacher all_sources vi
+```
+
 

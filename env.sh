@@ -1,4 +1,6 @@
 #!/bin/bash
+# this file will be included in ~/.bashrc
+
 # alias using='conda activate '
 alias using='source activate '
 alias env-list='conda info --envs'
@@ -17,3 +19,7 @@ alias backend="cd compose/dist && docker-compose up"
 
 alias s1='honcho start -f Procfile_linux'
 alias s2='honcho start -f Procfile_rasa'
+
+alias runc='docker-compose run'
+alias runi='docker-compose exec'
+alias run='docker-compose up'
