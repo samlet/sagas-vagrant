@@ -9,6 +9,8 @@ function start_inventory(){
 }
 
 py_odoo='/home/vagrant/miniconda/envs/odoo/bin/python'
+nlp_honcho='/home/vagrant/miniconda/envs/bigdata/bin/honcho'
+rasa_honcho='/home/vagrant/miniconda/envs/rasa/bin/honcho'
 
 # startup 
 if [ $# -lt 1 ]; then	
@@ -23,13 +25,20 @@ else
 		start_inventory
 		;;
 	"l")
-		vagrant up ; vagrant ssh -- -t 'cd /vagrant; /bin/bash'
+		vagrant up ; vagrant ssh -- -t 'cd /vagrant ; /bin/bash'
 		;;
 	"ssh")
-		vagrant ssh -- -t 'cd /vagrant; /bin/bash'
+		vagrant ssh -- -t 'cd /vagrant ; /bin/bash'
 		;;
 	"ws")
-		vagrant ssh -- -t 'cd /pi/stack; /bin/bash'
+		vagrant ssh -- -t 'cd /pi/stack ; /bin/bash'
+		;;
+
+	"nlp")
+		vagrant ssh -- -t "cd /pi/stack && $nlp_honcho -e .linux_env start -f Procfile_linux"
+		;;
+	"rasa")
+		vagrant ssh -- -t "cd /pi/stack && $rasa_honcho -e .linux_env start -f Procfile_rasa"
 		;;
 
 	"bus")

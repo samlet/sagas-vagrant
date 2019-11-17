@@ -34,7 +34,7 @@ conda install -c conda-forge icu
 ## docker
 ```sh
 cd /pi/stack
-# rabbit, mosquitto, duckling, mongo
+# rabbit, mosquitto, duckling, mongo, redis, mysql
 cd compose/dist && docker-compose up
 # or: backend
 # or: start bus
@@ -91,6 +91,17 @@ $ python -m sagas.nlu.wordnet_procs print_definition dog
 $ python -m sagas.ja.knp_procs tree "望遠鏡で泳いでいる少女を見た。"
 # check spacy
 $ python -m sagas.nlu.spacy_procs ents 'I am from China'
+# check rules
+$ python -m sagas.nlu.rules_obj_spec storeman '你有几台笔记本电脑？' zh
+# check lang_spec_rules
+$ python -m sagas.nlu.rules_lang_spec langspec 'Berapa umur kamu?' id
+```
+
++ shortcuts: sagas
+
+```sh
+start nlp
+start rasa
 ```
 
 ## java components
@@ -120,6 +131,9 @@ $ python -m sagas.zh.timenlp_procs parse "周五下午7点到8点" "2017-07-19-0
 
 # ofbiz
 # preqs: start bus
+# check preqs
+$ sudo systemctl status zookeeper
+
 # check ofbiz database
 $ runi mysql bash
 $ mysql -h 192.168.33.30 -uofbiz -pofbiz

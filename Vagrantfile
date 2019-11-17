@@ -23,7 +23,8 @@ Vagrant.configure("2") do |config|
   # Increase memory for Virtualbox
   config.vm.provider "virtualbox" do |vb|
       # vb.name = "docker_18"
-      vb.memory = "4096"
+      # vb.memory = "4096"
+      vb.memory = "6144"
       vb.cpus = 2
   end
 end
