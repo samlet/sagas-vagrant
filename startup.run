@@ -8,9 +8,11 @@ function start_inventory(){
 	start_docker inventory "$msg_mysql"
 }
 
+python='/home/vagrant/miniconda/envs/bigdata/bin/python'
 py_odoo='/home/vagrant/miniconda/envs/odoo/bin/python'
 nlp_honcho='/home/vagrant/miniconda/envs/bigdata/bin/honcho'
 rasa_honcho='/home/vagrant/miniconda/envs/rasa/bin/honcho'
+bert_s="$HOME/miniconda/envs/bigdata/bin/bert-serving-start"
 
 # startup 
 if [ $# -lt 1 ]; then	
@@ -24,6 +26,8 @@ else
 	"inventory")
 		start_inventory
 		;;
+
+	# shell ........
 	"l")
 		vagrant up ; vagrant ssh -- -t 'cd /vagrant ; /bin/bash'
 		;;
@@ -34,6 +38,7 @@ else
 		vagrant ssh -- -t 'cd /pi/stack ; /bin/bash'
 		;;
 
+	# nlp ........
 	"nlp")
 		vagrant ssh -- -t "cd /pi/stack && $nlp_honcho -e .linux_env start -f Procfile_linux"
 		;;
@@ -41,6 +46,7 @@ else
 		vagrant ssh -- -t "cd /pi/stack && $rasa_honcho -e .linux_env start -f Procfile_rasa"
 		;;
 
+	# ofbiz and it's dependencies .......
 	"bus")
 		vagrant ssh -- -t 'cd /pi/stack/compose/dist; /home/vagrant/miniconda/bin/docker-compose up'
 		;;
@@ -51,11 +57,29 @@ else
 		vagrant ssh -- -t 'cd /vagrant/projs/ofbiz-framework/ ; ./gradlew ofbiz -x test'
 		;;
 
+	# odoo .........
 	"odoo")
 		vagrant ssh -- -t "cd /vagrant/projs/odoo-12.0.post20190620/ ; $py_odoo ./odoo-bin -d demo"
 		;;
 	"odoo-shell")
 		vagrant ssh -- -t "cd /vagrant/projs/odoo-12.0.post20190620/ ; $py_odoo ./odoo-bin shell -d demo"
+		;;
+
+	# bert .........
+	"bert-multi")
+		# BERT-Base, Multilingual Cased (New, recommended): 104 languages, 12-layer, 768-hidden, 12-heads, 110M parameters
+		$bert_s -model_dir /pi/ai/bert/multi_cased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50 -cased_tokenization
+		;;
+	"bert-en")
+		$bert_s -model_dir /pi/ai/bert/uncased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50
+		# $bert_s -model_dir /pi/ai/bert/uncased_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=NONE
+		;;
+	"bert-zh")
+		$bert_s -model_dir /pi/ai/bert/chinese_L-12_H-768_A-12/ -num_worker=1 -max_seq_len=50 -cased_tokenization
+		;;
+
+	"grakn")
+		vagrant ssh -- -t "cd ~/grakn/grakn-core-all-linux-1.5.9/ ; ./grakn server status"
 		;;
 	*)
 		# default proc

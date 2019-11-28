@@ -13,6 +13,8 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "~/tools/ai", "/pi/ai", type: "nfs"
   config.vm.synced_folder "~/nltk_data", "/home/vagrant/nltk_data", type: "nfs"
   config.vm.synced_folder "~/jcloud/assets/langs/workspace/rasa/stack", "/pi/stack", type: "nfs"
+  config.vm.synced_folder "~/jcloud/assets/langs/workspace/rasa/rasa-1.x/ws", "/pi/ws", type: "nfs"
+
   # jcloud/assets/langs/workspace/hanlp  
   config.vm.synced_folder "~/jcloud/assets/langs/workspace/hanlp", "/pi/hanlp", type: "nfs"
   config.vm.synced_folder "~/jcloud/assets/langs/workspace/stanford-corenlp-full-2018-10-05", "/pi/stanford", type: "nfs"

@@ -15,13 +15,20 @@ sudo cpan Graph::Easy
 
 ## conda packages
 ```sh
-conda install -c conda-forge icu
+$ conda create --name bigdata python=3.6
+$ using bigdata
+
+$ conda install -c conda-forge icu
+$ conda install faiss-cpu==1.5.3 -c pytorch
+
+# Sometimes, problems (eg with BLAS libraries) appear only when actually calling a BLAS function. A simple way to check this
+$ python -c "import faiss, numpy ; faiss.Kmeans(10, 20).train(numpy.random.rand(1000, 10).astype('float32'))"
 ```
 
 ## packages: bigdata
 * fire, waitress, simplejson, clipboard, graphviz
 * honcho
-* rasa, spacy
+* rasa, spacy, snips-nlu
 * py4j, kazoo
 * aio-pika, aiohttp, pika
 * pypinyin, jieba, nltk, stanfordnlp, pyltp, kroman, cyrtranslit, iso-639
@@ -30,6 +37,16 @@ conda install -c conda-forge icu
 * PyExecJS, bs4
 * pyicu, morfessor pycld2 polyglot
 * graphene, pyarrow
+* bert-serving-client, bert-serving-server
+
++ icu+pyicu (macos)
+    ⊕ [PyICU 2.0.2 fails to build on OS X · Issue #70 · ovalhub/pyicu](https://github.com/ovalhub/pyicu/issues/70)
+
+```sh
+$ conda install -c conda-forge icu  # 64.2
+$ export PYICU_CFLAGS=-std=c++11:-DPYICU_VER='"2.3.1"'
+$ pip install pyicu==2.3.1
+```
 
 ## docker
 ```sh
@@ -45,11 +62,18 @@ cd compose/dist && docker-compose up
     + workspace/rasa/japanese/procs-pyknp.md
 ✔ spacy: language-models
     $ pip install /pi/ai/spacy/2.2/*
+✔ snips-nlu: models
+    $ snips-nlu download en
 
 ```sh
 $ cd /pi/stack
+
+# spacy models
 $ scripts/download_spacy_models.sh
 $ python -m spacy validate
+
+# snips-nlu models
+$ scripts/download_snips_models.sh
 ```
 
 ## apps
@@ -230,5 +254,17 @@ $ cd /pi/stack
 $ using bigdata
 $ python -m sagas.nlu.trans_cacher all_sources vi
 ```
+
+## addons
+```sh
+$ using bigdata
+$ cd /vagrant/pkgs/
+$ ./install_ar.sh 
+
+$ cd /pi/stack
+# test arabic translit
+$ python -m sagas.nlu.translit_ar tests
+```
+
 
 
