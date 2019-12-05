@@ -1,6 +1,8 @@
 # procs-sagas.md
 ## linux packages (ubuntu 18.04)
 ```sh
+$ lsb_release -a
+
 sudo apt-get install build-essential graphviz libboost-all-dev
 sudo apt-get install openjdk-8-jdk
 # build tools
