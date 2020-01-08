@@ -29,17 +29,19 @@ $ python -c "import faiss, numpy ; faiss.Kmeans(10, 20).train(numpy.random.rand(
 
 ## packages: bigdata
 * fire, waitress, simplejson, clipboard, graphviz
+* cachetools, PyYAML
 * honcho
 * rasa, spacy, snips-nlu
 * py4j, kazoo
-* aio-pika, aiohttp, pika
+* aio-pika, aiohttp[speedups], pika, sanic
 * pypinyin, jieba, nltk, stanfordnlp, pyltp, kroman, cyrtranslit, iso-639
 * jupyter, streamlit
 * OdooRPC
 * PyExecJS, bs4
 * pyicu, morfessor pycld2 polyglot
-* graphene, pyarrow
+* graphene, pyarrow, feedparser, pydgraph
 * bert-serving-client, bert-serving-server
+* durable_rules
 
 + icu+pyicu (macos)
     ⊕ [PyICU 2.0.2 fails to build on OS X · Issue #70 · ovalhub/pyicu](https://github.com/ovalhub/pyicu/issues/70)
