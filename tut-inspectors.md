@@ -7,7 +7,10 @@
 
 ■ 实体处理和分析工具: 精确语义理解
     + procs-rasa-entity-iob.ipynb
+        (https://github.com/samlet/saai/blob/master/notebook/procs-rasa-entity-iob.ipynb)
+        
         * 如何编写一个自定义的inspector: 这里是一个稍复杂的示范过程, 检测指定的句子成分里是否包含指定的领域实体(crf训练识别), 比如obl成分中是否包含cuisine实体
+
     + procs-parse-chunks.ipynb
         * 各语言的domains分析图
     + procs-crf.ipynb
@@ -20,6 +23,7 @@
         * sagas.nlu.ruleset_procs
     0.2 procs-*.ipynb
     0.3 现有的inspectors
+        * stack工程里有很多用于各种目的的inspectors, rules.py文件中有这些inspectors的使用范例.
     0.4 使用了查找表的领域实体训练:
         + ws/simple
     0.5 可以将agent_dispatcher作为工程模板, 新的模块可以基于这个模板进行创建;
@@ -32,7 +36,7 @@
     3. 在规则中使用自定义的inspector:
         + sagas-ai/bots/agent_dispatcher/assets/rs_common_en.yml
     4. 测试rulesets:
-        $ sagas examples food en True
+        $ sagas examples food en True  # 必须要在agent_dispatcher目录下执行, 因为注册文件和实现类都在这个目录下
     5. 应用rulesets:
         $ sagas ruleset 'how about french food?' food en True
 
@@ -58,4 +62,9 @@
     
     + bots/agent_dispatcher/procs-nlu-integration.ipynb
     + bots/agent_dispatcher/procs-bot-actions.ipynb
+
+- 过程比较复杂, 可能遇到的问题也会比较多. 到时候总结一下问题再做个新的指导视频吧.
+
+
+
 
